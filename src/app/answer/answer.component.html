@@ -1,0 +1,32 @@
+
+<div class="question-container"> 
+    <p-card header="Preview Page">
+    <div class="card">
+                 
+    
+        <div class="field">
+        <label for="question"> {{ review$.question}}</label> <br>
+
+        <ng-container *ngIf="review$.questionType == 'P' || review$.questionType.code == 'P'">
+            <p>{{ review$.answer}}</p>
+
+        </ng-container>
+        <ng-container *ngIf="review$.questionType == 'CL' || review$.questionType.code == 'CL'">
+            <p *ngFor="let answer of review$.checkBoxAnswers">{{ answer}}</p>
+
+        </ng-container>
+
+        </div>
+
+        <div class="field">
+            <p-button (click)="backToFormsBulder()" label="Back To Form Builder" ></p-button>
+
+    
+            </div>
+
+        
+        </div>
+        
+    
+    </p-card>
+</div>

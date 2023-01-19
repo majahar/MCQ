@@ -1,0 +1,78 @@
+
+<div class="question-container">
+    <p-card header="Quiz">
+        <p-button (click)="showModalDialog()" label="Add Question" ></p-button>
+    
+    </p-card>
+</div>
+<p-dialog header="Question Answer Screen" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false">
+    <form [formGroup]="questoinForm">
+        <div class="card">
+            <div class="field">
+                <label for="questionType">Question Type</label>
+                <p-dropdown [options]="questionType" (onChange)="selectQuestionType($event)" formControlName="questionType"  optionLabel="name"></p-dropdown>
+            </div>
+            <span 
+            class="text-danger p-error" 
+            *ngIf="questoinForm.get('questionType')?.errors && 
+            questoinForm.get('questionType')?.hasError('required') && isSubmitted"
+        > Question Type is Required</span>   
+
+    <div class="field">
+    <label for="question">Question</label>
+    <input id="question" type="text"  formControlName="question" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    </div>
+    <span 
+            class="text-danger p-error" 
+            *ngIf="questoinForm.get('question')?.errors && 
+            questoinForm.get('question')?.hasError('required') && isSubmitted"
+        >Question is Required</span> 
+<ng-container *ngIf="showAnswers"> 
+  <div formArrayName="answers" *ngFor="let t of answers.controls; let i = index">
+    <div class="row" [formGroupName]="i">
+      <div class="col-md-2">
+        <p class="lead">Answer {{i+1}}</p>
+      </div>
+      <div class="col-md-5 field">
+        <input formControlName='answer' id="{{'answer'+i}}" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          placeholder="Enter Answer" />
+      </div>
+     
+
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md-5">
+
+        <div class="alert  alert-danger p-error"
+          *ngIf="answers.controls[i].get('answer')?.hasError('required') && answers.controls[i].get('answer')?.touched">
+          Answer is required
+        </div>
+      </div>
+   
+    </div>
+
+  </div>
+  <div class="col-md-3">
+    <button pButton type="button" (click)='addAnswer()' label="Add Answer" class="p-button-success" icon="pi pi-plus"></button>
+
+  </div>
+</ng-container>
+            
+   
+    
+    </div>
+    </form>
+            
+
+
+        <ng-template pTemplate="footer">
+            <p-button (click)="onSubmit()" label="Submit" ></p-button>
+        </ng-template>
+</p-dialog>
+
+
+ 

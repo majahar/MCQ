@@ -1,0 +1,40 @@
+
+<div class="question-container">
+    <p-card header="Quiz"> 
+        <form [formGroup]="reviewForm">
+    <div class="card">
+                 
+    
+        <div class="field">
+        <label for="question"> {{ qdata.question}}</label> <br>
+
+        </div>
+        <div class="field" *ngIf="qdata.questionType == 'P' || qdata.questionType.code == 'P'">
+            <textarea pInputTextarea formControlName="answer" ></textarea>
+    
+            </div>
+             <ng-container *ngIf="qdata.questionType == 'CL' || qdata.questionType.code == 'CL'">
+                <div class="field-checkbox" *ngFor="let ans of qdata.answers">
+                    <p-checkbox name="group1" [formControl]="reviewForm.controls['checkBoxAnswers']" [value]="ans.answer" inputId="ny"></p-checkbox>
+                    <label for="ny">{{ans.answer}}</label>
+                </div>
+             </ng-container>
+            
+           
+
+
+            
+
+        <div class="field">
+            <p-button (click)="reviewAnswer()" label="Review My Answers" ></p-button>
+
+    
+            </div>
+
+        
+        </div>
+        </form>
+        
+    
+    </p-card>
+</div>
